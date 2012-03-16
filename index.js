@@ -49,7 +49,7 @@ module.exports = function (options) {
 			function compileFiles(str) {
 				if(str) {
 					output += str;
-					output += "\n";
+					output += ";\n";
 				}
 				if(fileIndex < options.files.length) {
 					compileFile(options.files[fileIndex++], compileFiles);
