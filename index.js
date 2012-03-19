@@ -44,7 +44,7 @@ module.exports = function (options) {
 	var output = "";
 
 	return function (req, res, next) {
-
+		fileIndex = 0;
 		function compile() {
 			function compileFiles(str) {
 				if(str) {
@@ -64,7 +64,6 @@ module.exports = function (options) {
 		}
 
 		if(options.force) {
-			fileIndex = 0;
 			return compile();
 		}
 
@@ -73,7 +72,6 @@ module.exports = function (options) {
 				// gonna swallow the other errors and assume the file doesn't exist
 				return compile();
 			}
-			fileIndex = 0;
 			res.sendfile(options.dest);
 		});
 	};
