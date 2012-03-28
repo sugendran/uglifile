@@ -13,15 +13,15 @@ var defaults = {
 	force: false
 };
 
-module.exports = function (options) {
-	if(!options) options = { };
-	for(opt in defaults) {
-		if(typeof(options[opt]) == "undefined") {
+module.exports = function(options) {
+	if (!options) options = {};
+	for (opt in defaults) {
+		if (typeof(options[opt]) == "undefined") {
 			options[opt] = defaults[opt];
 		}
 	}
 
-	if(!options.dest) {
+	if (!options.dest) {
 		throw new Error("Uglifile: destination path not set.");
 	}
 
@@ -43,34 +43,39 @@ module.exports = function (options) {
 	var fileIndex = 0;
 	var output = "";
 
-	return function (req, res, next) {
-		fileIndex = 0;
-		function compile() {
-			function compileFiles(str) {
-				if(str) {
-					output += str;
-					output += ";\n";
-				}
-				if(fileIndex < options.files.length) {
-					compileFile(options.files[fileIndex++], compileFiles);
-				} else {
-					fs.writeFile(options.dest, output, 'utf8', function(err) {
-						if(err) return next(err);
-						res.sendfile(options.dest);
-					});
-				}
+	function compile(callback) {
+		function compileFiles(str) {
+			if (str) {
+				output += str;
+				output += ";\n";
 			}
-			compileFiles();
+			if (fileIndex < options.files.length) {
+				compileFile(options.files[fileIndex++], compileFiles);
+			} else {
+				fs.writeFile(options.dest, output, 'utf8', callback);
+			}
 		}
+		compileFiles();
+	}
 
-		if(options.force) {
-			return compile();
+	compile(function() {});
+
+	return function(req, res, next) {
+
+		if (options.force) {
+			return compile(function(err) {
+				if (err) return next(err);
+				res.sendfile(options.dest);
+			});
 		}
 
 		fs.stat(options.dest, function(err, uglyStats) {
 			if (err) {
 				// gonna swallow the other errors and assume the file doesn't exist
-				return compile();
+				return compile(function(err) {
+					if (err) return next(err);
+					res.sendfile(options.dest);
+				});
 			}
 			res.sendfile(options.dest);
 		});
