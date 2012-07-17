@@ -40,10 +40,12 @@ module.exports = function(options) {
 		});
 	}
 
-	var fileIndex = 0;
-	var output = "";
+	var fileIndex;
+	var output;
 
 	function compile(callback) {
+		fileIndex = 0;
+		output = "";
 		function compileFiles(str) {
 			if (str) {
 				output += str;
