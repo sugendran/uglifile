@@ -26,6 +26,8 @@ module.exports = function(options) {
 	}
 
 	function compileFile(file, callback) {
+		if (!fs.existsSync(file))
+			throw new Error(file + ' does not exist');
 		fs.readFile(file, 'utf8', function(err, str) {
 			if (err) return next(err);
 			if (!options.compress) {
