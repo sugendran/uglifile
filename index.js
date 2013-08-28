@@ -14,6 +14,7 @@ var defaults = {
 };
 
 module.exports = function(options) {
+
 	if (!options) options = {};
 	for (opt in defaults) {
 		if (typeof(options[opt]) == "undefined") {
@@ -61,8 +62,6 @@ module.exports = function(options) {
 		}
 		compileFiles();
 	}
-
-	compile(function() {});
 
 	return function(req, res, next) {
 
