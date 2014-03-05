@@ -1,18 +1,19 @@
 {
-	"name": "uglifile",
-	"description": "This is a wrapper around the uglify.js code that produces a single file to be rendered out of express.",
-	"author": {
-		"name": "Sugendran Ganess",
+	"name":         "uglifile",
+	"description":  "This is a wrapper around the uglify.js code that produces a single file to be rendered out of express.",
+	"author":       {
+		"name":  "Sugendran Ganess",
 		"email": "sugendran@sugendran.net",
-		"url": "http://sugendran.info"
+		"url":   "http://sugendran.info"
 	},
-	"version": "0.0.5",
-	"main": "index.js",
+	"version":      "0.0.5",
+	"main":         "index.js",
 	"dependencies": {
-		"uglify-js": "1.2.5"
+		"uglify-js":      "1.2.5",
+		"typescript.api": "0.7.7"
 	},
-	"repository": {
+	"repository":   {
 		"type": "git",
-		"url": "git@github.com:sugendran/uglifile.git"
+		"url":  "git@github.com:sugendran/uglifile.git"
 	}
 }
