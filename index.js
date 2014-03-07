@@ -164,16 +164,26 @@ module.exports = function (options)
 				_fs.utimesSync(cfile, stats.atime, stats.mtime);
 			}
 
+			function finish(js)
+			{
+				if (fCache)
+					saveCacheFile(js);
+
+				if (options.verbose)
+				{
+					console.log('Compiled %s in %d ms', file, Date.now() - start);
+					if (fCache)
+						console.log('    => %s', cfile);
+				}
+			}
+
 			// Check for typescript
+
 			function uglify(js)
 			{
 				if (!options.compress)
 				{
-					if (fCache)
-						saveCacheFile(js);
-
-					if (options.verbose)
-						console.log('Compiled %s in %d ms', file, Date.now() - start);
+					finish(js);
 
 					return callback(null, "\n\n// " + file + "\n\n" + js);
 				}
@@ -191,12 +201,7 @@ module.exports = function (options)
 
 				var ugly = _pro.gen_code(ast);
 
-				if (fCache)
-					saveCacheFile(ugly);
-
-				if (options.verbose)
-					console.log('Compiled %s in %d ms', file, Date.now() - start);
-
+				finish(ugly);
 
 				callback(null, ugly);
 			}
