@@ -1,8 +1,3 @@
-process.on('uncaughtException', function (err)
-{
-	console.log(err);
-});
-
 var _uglify = require('uglify-js');
 var _jsp = _uglify.parser;
 var _pro = _uglify.uglify;
@@ -174,6 +169,7 @@ module.exports = function (options)
 					console.log('Compiled %s in %d ms', file, Date.now() - start);
 					if (fCache)
 						console.log('    => %s', cfile);
+
 				}
 			}
 
