@@ -268,7 +268,7 @@ module.exports = function (options)
 					return next(err);
 				}
 
-				res.sendfile(options.dest);
+				res.sendfile(options.dest, {root:'/'});
 			});
 		}
 
@@ -282,7 +282,7 @@ module.exports = function (options)
 					if (err)
 						return next(err);
 
-					res.sendfile(options.dest);
+					res.sendfile(options.dest,{root:'/'});
 				});
 			}
 			res.sendfile(options.dest);
