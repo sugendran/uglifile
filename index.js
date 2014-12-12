@@ -268,7 +268,7 @@ module.exports = function (options)
 					return next(err);
 				}
 
-				res.sendfile(options.dest, {root:'/'});
+				res.sendFile(options.dest, {root:'/'});
 			});
 		}
 
