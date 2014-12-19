@@ -282,10 +282,10 @@ module.exports = function (options)
 					if (err)
 						return next(err);
 
-					res.sendfile(options.dest,{root:'/'});
+					res.sendFile(options.dest, {root:'/'});
 				});
 			}
-			res.sendfile(options.dest);
+			res.sendFile(options.dest, {root:'/'});
 		});
 	};
 };
