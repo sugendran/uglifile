@@ -216,7 +216,12 @@ module.exports = function (options)
 			}
 			else
 			{
-				uglify(code);
+				if(!!file.match('require-wrapper-start') || !!file.match('require-wrapper-end')){
+					callback(null, code);
+				}
+				else{
+					uglify(code);
+				}
 			}
 
 		});
